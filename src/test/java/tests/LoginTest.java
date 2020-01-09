@@ -14,7 +14,7 @@ public class LoginTest {
 	Login auth;
 	private String loginCookieName = "WebIssuesSID";
 
-	@BeforeClass
+	@BeforeClass(groups = {"smoke", "regression"} )
 	public void beforeClass() {
 		System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -23,7 +23,7 @@ public class LoginTest {
 		auth = new Login(driver);
 	}
 
-	@AfterClass
+	@AfterClass(groups = {"smoke", "regression"} )
 	public void afterClass() {
 		driver.quit();
 	}
@@ -44,7 +44,7 @@ public class LoginTest {
 				"Validation message is missing");
 	}
 	
-	@Test
+	@Test(groups = {"smoke", "regression"} )
 	public void Should_BeAbleToLogin_When_WithValidData() throws InterruptedException {
 		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) != null;

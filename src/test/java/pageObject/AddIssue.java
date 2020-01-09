@@ -32,20 +32,20 @@ public class AddIssue extends PageObject {
 		driver.get("http://qaontime.com/register/client/index.php?folder=5");
 		driver.findElement(By.linkText("Add Issue")).click();
 
+		Thread.sleep(3000);
+		
 		this.issueField.sendKeys(issue);
 		this.descriptionField.sendKeys(description);
-		Thread.sleep(1000);
 		this.submitButton.click();
 	}
-
+	
 	public void add(String issue, String description, String severity) {
 		driver.get("http://qaontime.com/register/client/index.php?folder=5");
 		driver.findElement(By.linkText("Add Issue")).click();
 
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
