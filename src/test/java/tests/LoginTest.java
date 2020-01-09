@@ -12,13 +12,13 @@ import pageObject.Login;
 public class LoginTest {
 	public WebDriver driver;
 	Login auth;
+	private String loginCookieName = "WebIssuesSID";
 
 	@BeforeClass
 	public void beforeClass() {
 		System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get("http://qaontime.com/register");
 
 		auth = new Login(driver);
 	}
@@ -42,5 +42,33 @@ public class LoginTest {
 
 		Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
 				"Validation message is missing");
+	}
+	
+	@Test
+	public void Should_BeAbleToLogin_When_WithValidData() throws InterruptedException {
+		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		boolean cookie = driver.manage().getCookieNamed(loginCookieName) != null;
+		
+		Assert.assertTrue(cookie, "Login failed");
+	}
+	
+	@Test
+	public void Should_BeAbleToLogOut_When_PressLink() throws InterruptedException {
+		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		auth.logout();
+
+		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;
+		
+		Assert.assertTrue(cookie, "LogOut failed");
+	}
+	
+	@Test
+	public void Should_BeAbleToLogOut_When_DeleteCookie() throws InterruptedException {
+		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		
+		driver.manage().deleteCookieNamed(loginCookieName);
+		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;
+		
+		Assert.assertTrue(cookie, "LogOut failed when deleting cookie manually");
 	}
 }

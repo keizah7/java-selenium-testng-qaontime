@@ -16,12 +16,20 @@ public class Login extends PageObject {
 
 	@FindBy(className = "error")
 	private WebElement error;
+	
+	@FindBy(linkText="Log Out")
+	private WebElement logOutLink;
+
+	public WebElement getLogOutLink() {
+		return logOutLink;
+	}
 
 	public Login(WebDriver driver) {
 		super(driver);
 	}
 
 	public void login(String userName, String password) {
+		driver.get("http://qaontime.com/register");
 		this.loginField.clear();
 		this.passField.clear();
 		
@@ -36,6 +44,10 @@ public class Login extends PageObject {
 		}
 		
 		this.loginSubmitButton.click();
+	}
+	
+	public void logout() {
+		logOutLink.click();
 	}
 
 	public WebElement getError() {

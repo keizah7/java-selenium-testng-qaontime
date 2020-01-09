@@ -18,7 +18,7 @@ public class IssuesTest {
 	@Test
 	public void Should_BeAbleToCreateIssue_When_ProvidingCorrectData() throws InterruptedException {
 		issue.add(randomText(10) + " " + randomInt(100, 999), randomText(10));
-		issue.delete();
+//		issue.delete();
 	}
 
 	@Test // (timeOut=1000) //(enabled=false)
@@ -27,10 +27,17 @@ public class IssuesTest {
 
 		Assert.assertEquals(issue.getErrorIssue().getText(), "Incorrect value: Required value is missing.");
 	}
+	
+	@Test // (timeOut=1000) //(enabled=false)
+	public void Should_NotBeAbleToCreateIssue_When_IssueNameIsEmpty() throws InterruptedException {
+		issue.add("", randomText(100));
+
+		Assert.assertEquals(issue.getErrorIssue().getText(), "Incorrect value: Required value is missing.");
+	}
 
 	@Test
 	public void Should_NotBeAbleToCreateIssue_When_IssueSeverityIsInvalid() throws InterruptedException {
-		issue.add("tikrinu", "severity", "30");
+		issue.add("random random", "severity", "30");
 
 		Assert.assertEquals(issue.getErrorSeverity().getText(), "Incorrect value: Number is too big.");
 	}
