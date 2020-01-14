@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import pageObject.Login;
+import utils.Utils;
 
 public class LoginTest {
 	public WebDriver driver;
@@ -30,7 +31,7 @@ public class LoginTest {
 
 	@Test
 	public void Should_BeNotAbleToLogin_When_ProvidingInvalidUserName() throws InterruptedException {
-		auth.login("invalid", "murashka.arturas@gmail.com");
+		auth.login("invalid", Utils.getPassword());
 
 		Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
 				"Validation message is missing");
@@ -38,7 +39,7 @@ public class LoginTest {
 
 	@Test
 	public void Should_BeNotAbleToLogin_When_ProvidingInvalidPassword() throws InterruptedException {
-		auth.login("murashka.arturas@gmail.com", "invalida");
+		auth.login(Utils.getUsername(), "invalida");
 
 		Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
 				"Validation message is missing");
@@ -46,7 +47,7 @@ public class LoginTest {
 	
 	@Test(groups = {"smoke", "regression"} )
 	public void Should_BeAbleToLogin_When_WithValidData() throws InterruptedException {
-		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		auth.login(Utils.getUsername(), Utils.getPassword());
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) != null;
 		
 		Assert.assertTrue(cookie, "Login failed");
@@ -54,7 +55,7 @@ public class LoginTest {
 	
 	@Test
 	public void Should_BeAbleToLogOut_When_PressLink() throws InterruptedException {
-		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		auth.login(Utils.getUsername(), Utils.getPassword());
 		auth.logout();
 
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;
@@ -64,7 +65,7 @@ public class LoginTest {
 	
 	@Test
 	public void Should_BeAbleToLogOut_When_DeleteCookie() throws InterruptedException {
-		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		auth.login(Utils.getUsername(), Utils.getPassword());
 		
 		driver.manage().deleteCookieNamed(loginCookieName);
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;

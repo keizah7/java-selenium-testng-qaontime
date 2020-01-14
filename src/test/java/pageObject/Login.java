@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import utils.Utils;
+
 public class Login extends PageObject {
 	@FindBy(id = "field-login-login")
 	private WebElement loginField;
@@ -29,7 +31,7 @@ public class Login extends PageObject {
 	}
 
 	public void login(String userName, String password) {
-		driver.get("http://qaontime.com/register");
+		driver.get(Utils.getUrl());
 		this.loginField.clear();
 		this.passField.clear();
 		

@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import utils.Utils;
+
 public class AddIssue extends PageObject {
 	@FindBy(id = "field-issues-issueName")
 	private WebElement issueField;
@@ -51,9 +53,9 @@ public class AddIssue extends PageObject {
 	}
 
 	public void add(String issue, String description) {
-		driver.get("http://qaontime.com/register/client/index.php?folder=5");
+		driver.get(Utils.getUrl()+"client/index.php?folder=5");
 		driver.findElement(By.linkText("Add Issue")).click();
-		
+
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.elementToBeClickable(issueField));
 
@@ -66,7 +68,7 @@ public class AddIssue extends PageObject {
 	}
 	
 	public void add(String issue, String description, String severity) {
-		driver.get("http://qaontime.com/register/client/index.php?folder=5");
+		driver.get(Utils.getUrl()+"client/index.php?folder=5");
 		driver.findElement(By.linkText("Add Issue")).click();
 
 		WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -84,7 +86,7 @@ public class AddIssue extends PageObject {
 	}
 	
 	public void add(String issue, String assignedTo, String status, String reason, String description, String severity) {
-		driver.get("http://qaontime.com/register/client/index.php?folder=5");
+		driver.get(Utils.getUrl()+"client/index.php?folder=5");
 		driver.findElement(By.linkText("Add Issue")).click();
 		
 		WebDriverWait wait = new WebDriverWait(driver, 10);

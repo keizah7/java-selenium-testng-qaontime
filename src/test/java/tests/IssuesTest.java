@@ -17,7 +17,7 @@ public class IssuesTest {
 	public void Should_BeAbleToCreateIssue_When_ProvidingCorrectData() {
 		String issueName = Utils.randomText(10) + Utils.randomInt(100, 999);
 		
-		issue.add(issueName, Utils.randomText(50));
+		issue.add(issueName, Utils.randomText(50), "2");
 //		issue.delete();
 	}
 
