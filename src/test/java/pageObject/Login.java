@@ -36,13 +36,6 @@ public class Login extends PageObject {
 		this.loginField.sendKeys(userName);
 		this.passField.sendKeys(password);
 		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		this.loginSubmitButton.click();
 	}
 	

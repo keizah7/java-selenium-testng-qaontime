@@ -14,32 +14,53 @@ public class IssuesTest {
 	public AddIssue issue;
 
 	@Test
-	public void Should_BeAbleToCreateIssue_When_ProvidingCorrectData() throws InterruptedException  {
+	public void Should_BeAbleToCreateIssue_When_ProvidingCorrectData() {
 		String issueName = Utils.randomText(10) + Utils.randomInt(100, 999);
 		
 		issue.add(issueName, Utils.randomText(50));
-		issue.delete();
+//		issue.delete();
 	}
 
 	@Test // (timeOut=1000) //(enabled=false)
-	public void Should_NotBeAbleToCreateIssue_When_IssueNameIsNotProvided() throws InterruptedException {
+	public void Should_NotBeAbleToCreateIssue_When_IssueNameIsNotProvided()  {
 		issue.add("", Utils.randomText(100));
 
 		Assert.assertEquals(issue.getErrorIssue().getText(), "Incorrect value: Required value is missing.");
 	}
 	
 	@Test // (timeOut=1000) //(enabled=false)
-	public void Should_NotBeAbleToCreateIssue_When_IssueNameIsEmpty() throws InterruptedException {
+	public void Should_NotBeAbleToCreateIssue_When_IssueNameIsEmpty(){
 		issue.add("", Utils.randomText(100));
 
 		Assert.assertEquals(issue.getErrorIssue().getText(), "Incorrect value: Required value is missing.");
 	}
 
 	@Test
-	public void Should_NotBeAbleToCreateIssue_When_IssueSeverityIsInvalid() throws InterruptedException {
+	public void Should_NotBeAbleToCreateIssue_When_IssueSeverityIsInvalid()  {
 		issue.add("random random", "severity", "30");
 
 		Assert.assertEquals(issue.getErrorSeverity().getText(), "Incorrect value: Number is too big.");
+	}
+	
+	@Test
+	public void Should_NotBeAbleToCreateIssue_When_AssignedToIsInvalid(){
+		issue.add("title", "~~~", "Active", "Fixed", Utils.randomText(50), "2");
+	
+		Assert.assertEquals(issue.getAssignedError().getText(), "Incorrect value: No matching item is selected.", "MESSAGE Assigned failed");
+	}
+	
+	@Test
+	public void Should_NotBeAbleToCreateIssue_When_StatusIsInvalid() {
+		issue.add("title", "Greta", "~~~", "Fixed", Utils.randomText(50), "2");
+	
+		Assert.assertEquals(issue.getStatusError().getText(), "Incorrect value: No matching item is selected.", "MESSAGE Status failed");
+	}
+	
+	@Test
+	public void Should_NotBeAbleToCreateIssue_When_ReasonIsInvalid(){
+		issue.add("title", "Greta", "Active", "aaa", Utils.randomText(50), "2");
+	
+		Assert.assertEquals(issue.getReasonError().getText(), "Incorrect value: No matching item is selected.", "MESSAGE Reason failed");
 	}
 
 	@BeforeClass
@@ -57,7 +78,7 @@ public class IssuesTest {
 
 	@AfterClass
 	public void afterClass() {
-//		driver.quit();
+		driver.quit();
 	}
 
 //	@Test(expectedExceptions = ArithmeticException.class)
