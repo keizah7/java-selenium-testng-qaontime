@@ -79,34 +79,33 @@ public class Utils {
 			XSSFWorkbook wb = new XSSFWorkbook(fis);
 			XSSFSheet sheet = wb.getSheetAt(0); // creating a Sheet object to retrieve object
 			Iterator<Row> itr = sheet.iterator(); // iterating over excel file
-			
+
 			ArrayList<String> data = new ArrayList<String>();
-			List<String> columnNames = Arrays.asList(new String[]{"Username", "Password"});
-			
+			List<String> columnNames = Arrays.asList(new String[] { "Username", "Password" });
+
 			while (itr.hasNext()) {
 				Row row = itr.next();
 				Iterator<Cell> cellIterator = row.cellIterator(); // iterating over each column
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					switch (cell.getCellType()) {
-						case Cell.CELL_TYPE_STRING: // field that represents string cell type
-//							System.out.print(cell.getStringCellValue() + "\t\t\t");
-							String field = cell.getStringCellValue();
-							
-							if(!columnNames.contains(field)) {
-								data.add(field);
-							}
-							break;
-						case Cell.CELL_TYPE_NUMERIC: // field that represents number cell type
-//							System.out.print(cell.getNumericCellValue() + "\t\t\t");
-							break;
-						default:
+					case Cell.CELL_TYPE_STRING: // field that represents string cell type
+						String field = cell.getStringCellValue();
+
+						if (!columnNames.contains(field)) {
+							data.add(field);
+						}
+						break;
+//						case Cell.CELL_TYPE_NUMERIC: // field that represents number cell type
+////							System.out.print(cell.getNumericCellValue() + "\t\t\t");
+//							break;
+					default:
 					}
 					System.out.println();
 				}
 
 			}
-			
+
 			return data;
 		} catch (Exception e) {
 			e.printStackTrace();

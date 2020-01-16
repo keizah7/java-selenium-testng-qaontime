@@ -18,8 +18,8 @@ public class Login extends PageObject {
 
 	@FindBy(className = "error")
 	private WebElement error;
-	
-	@FindBy(linkText="Log Out")
+
+	@FindBy(linkText = "Log Out")
 	private WebElement logOutLink;
 
 	public WebElement getLogOutLink() {
@@ -34,13 +34,13 @@ public class Login extends PageObject {
 		driver.get(Utils.getUrl());
 		this.loginField.clear();
 		this.passField.clear();
-		
+
 		this.loginField.sendKeys(userName);
 		this.passField.sendKeys(password);
-		
+
 		this.loginSubmitButton.click();
 	}
-	
+
 	public void logout() {
 		logOutLink.click();
 	}

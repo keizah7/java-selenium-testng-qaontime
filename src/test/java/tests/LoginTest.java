@@ -1,13 +1,14 @@
 package tests;
 
 import java.util.ArrayList;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import pageObject.Login;
 import utils.Utils;
 
@@ -16,7 +17,7 @@ public class LoginTest {
 	Login auth;
 	private String loginCookieName = "WebIssuesSID";
 
-	@BeforeClass(groups = {"smoke", "regression"} )
+	@BeforeClass(groups = { "smoke", "regression" })
 	public void beforeClass() {
 		System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -25,7 +26,7 @@ public class LoginTest {
 		auth = new Login(driver);
 	}
 
-	@AfterClass(groups = {"smoke", "regression"} )
+	@AfterClass(groups = { "smoke", "regression" })
 	public void afterClass() {
 		driver.quit();
 	}
@@ -45,43 +46,49 @@ public class LoginTest {
 		Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
 				"Validation message is missing");
 	}
-	
-	@Test(groups = {"smoke", "regression"} )
+
+	@Test(groups = { "smoke", "regression" })
 	public void Should_BeAbleToLogin_When_WithValidData() throws InterruptedException {
 		auth.login(Utils.getUsername(), Utils.getPassword());
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) != null;
-		
+
 		Assert.assertTrue(cookie, "Login failed");
 	}
-	
+
 	@Test
 	public void Should_BeAbleToLogOut_When_PressLink() throws InterruptedException {
 		auth.login(Utils.getUsername(), Utils.getPassword());
 		auth.logout();
 
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;
-		
+
 		Assert.assertTrue(cookie, "LogOut failed");
 	}
-	
+
 	@Test
 	public void Should_BeNotAbleToLogin_When_ProvidingArrayDataOfInvalidPassword() {
 		ArrayList<String> data = Utils.parseExcel();
-		
-		for (int i = 0; i < data.size(); i+=2) {
-			auth.login(data.get(i), data.get(i+1));
-			Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
-	  				"Validation message is missing");
+
+		for (int i = 0; i < data.size(); i += 2) {
+			if (driver.findElements(By.className("error")).size() != 0) {
+				auth.login(data.get(i), data.get(i + 1));
+
+				Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
+						"Validation message is missing");
+			} else {
+				Assert.assertTrue(false, "Missing valid error");
+			}
+
 		}
 	}
-	
+
 	@Test
 	public void Should_BeAbleToLogOut_When_DeleteCookie() throws InterruptedException {
 		auth.login(Utils.getUsername(), Utils.getPassword());
-		
+
 		driver.manage().deleteCookieNamed(loginCookieName);
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;
-		
+
 		Assert.assertTrue(cookie, "LogOut failed when deleting cookie manually");
 	}
 }
