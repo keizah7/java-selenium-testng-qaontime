@@ -1,5 +1,6 @@
 package tests;
 
+import java.util.ArrayList;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -39,7 +40,7 @@ public class LoginTest {
 
 	@Test
 	public void Should_BeNotAbleToLogin_When_ProvidingInvalidPassword() throws InterruptedException {
-		auth.login(Utils.getUsername(), "invalida");
+		auth.login(Utils.getUsername(), "invalid");
 
 		Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
 				"Validation message is missing");
@@ -61,6 +62,17 @@ public class LoginTest {
 		boolean cookie = driver.manage().getCookieNamed(loginCookieName) == null;
 		
 		Assert.assertTrue(cookie, "LogOut failed");
+	}
+	
+	@Test
+	public void Should_BeNotAbleToLogin_When_ProvidingArrayDataOfInvalidPassword() {
+		ArrayList<String> data = Utils.parseExcel();
+		
+		for (int i = 0; i < data.size(); i+=2) {
+			auth.login(data.get(i), data.get(i+1));
+			Assert.assertEquals(auth.getError().getText(), "Incorrect value: Invalid login or password.",
+	  				"Validation message is missing");
+		}
 	}
 	
 	@Test
