@@ -9,7 +9,7 @@
 
 This project is for educational porpuses only. Pull request are welcome! Thank you for your cooperation!
 
-## Requirements
+## Requirements (optional)
 - IntelliJ IDEA ([Download](https://code.visualstudio.com/Download))
 - Eclipse ([Download](https://www.eclipse.org/downloads/))
 - Another IDE with Java support
