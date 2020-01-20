@@ -71,7 +71,7 @@ public class IssuesTest {
 		driver.get("http://qaontime.com/register");
 
 		Login auth = new Login(driver);
-		auth.login("murashka.arturas@gmail.com", "murashka.arturas@gmail.com");
+		auth.login("username", "password");
 		
 		issue = new AddIssue(driver);
 	}
