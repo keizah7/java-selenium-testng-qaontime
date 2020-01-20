@@ -5,7 +5,7 @@
 ![Stars](https://img.shields.io/github/stars/keizah7/java-selenium-testng-qaontime?style=social)
 ![Watchers](https://img.shields.io/github/watchers/keizah7/java-selenium-testng-qaontime?style=social)
 
-# Testing qaontime.com with Java testNG framework
+# Testing qaontime.com with Java TestNG framework
 
 This project is for educational porpuses only. Pull request are welcome! Thank you for your cooperation!
 
@@ -34,7 +34,7 @@ In ```test-output/login.xml``` file you can write data which will be filled to l
 ```
 JohnDoee | john123123
 JohnDoee | sdfsdfsdfs
-... | ...
+... .... | .......
 ```
 
 
@@ -44,4 +44,4 @@ Dependencies management is available in ```pom.xml```
 ## Using
 Use ```testng.xml``` or ```smoke.xml``` files to run tests. (Run As / TestNG Suite)
 
-### Authors: [Arturas](https://github.com/keizah7) ![Followers](https://img.shields.io/github/followers/keizah7?style=social)
+### Authors: [Artūras](https://github.com/keizah7) ![Followers](https://img.shields.io/github/followers/keizah7?style=social)
