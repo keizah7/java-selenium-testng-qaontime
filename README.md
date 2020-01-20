@@ -16,7 +16,7 @@ This project is for educational porpuses only. Pull request are welcome! Thank y
 
 ## Setup
 
-Replace ```config/config.xml``` old data with valid information
+Replace ```config/config.xml``` old data with valid login information
 ```xml
 <config>
 	<user>
@@ -28,8 +28,8 @@ Replace ```config/config.xml``` old data with valid information
 ```
 
 
-In ```test-output/login.xml``` file you can write data which will be filled to login form.
-
+In ```test-data/login.xml``` file you can write data which will be filled to login form.
+output
 **UserName | Password**
 ```
 JohnDoee | john123123
